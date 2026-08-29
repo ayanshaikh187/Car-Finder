@@ -9,31 +9,31 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   const getCars = async () => {
-  try {
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    const params = new URLSearchParams({
-      search,
-      make,
-      model,
-      price,
-    });
+      const params = new URLSearchParams({
+        search,
+        make,
+        model,
+        price,
+      });
 
-    const url = `http://localhost:3000/cars?${params.toString()}`;
+      const url = `${import.meta.env.VITE_API_URL}/cars?${params.toString()}`;
 
-    window.history.pushState({}, "", `?${params.toString()}`);
+      window.history.pushState({}, "", `?${params.toString()}`);
 
-    const res = await fetch(url);
+      const res = await fetch(url);
 
-    const data = await res.json();
+      const data = await res.json();
 
-    setCars(data);
-  } catch (error) {
-    console.log(error);
-  } finally {
-    setLoading(false);
-  }
-};
+      setCars(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     getCars();
